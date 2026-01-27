@@ -1,4 +1,5 @@
 import socket
+from datetime import datetime
 
 s = socket.socket()
 host = "localhost"
@@ -16,11 +17,12 @@ MM.           MM    MM  8M""""""   MM    MM    MM
 '''
 def loop():
     while True:
-        msg = input("")
-        if msg.lower() == "quit":
+        message_input = input("")
+        if message_input.lower() == "quit":
             break
-        msg += str(username)
-        s.send(username.encode())
+        msg = username
+        current_time = datetime.now()
+        msg += (":" + message_input + ":" + current_time.strftime("%H:%M:%S"))
         s.send(msg.encode())
 
         print("wating for serbver message")
@@ -31,7 +33,7 @@ def connect(username):
     try:
         print("connecting")
         s.connect((host,port))
-        print("connected as" + username)
+        print("connected as " + username)
         loop()
     except:
         trying=input("couldnt connect to server, try again? (yes)")

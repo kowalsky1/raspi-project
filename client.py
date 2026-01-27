@@ -3,6 +3,7 @@ import socket
 s = socket.socket()
 host = "localhost"
 port = 50007
+username = ""
 client_text = '''
 ,,    ,,                               
   .g8"""bgd `7MM    db                         mm    
@@ -13,23 +14,32 @@ MM.           MM    MM  8M""""""   MM    MM    MM
 `Mb.     ,'   MM    MM  YM.    ,   MM    MM    MM    
   `"bmmmd'  .JMML..JMML. `Mbmmd' .JMML  JMML.  `Mbmo
 '''
+def loop():
+    while True:
+        msg = input("")
+        if msg.lower() == "quit":
+            break
+        msg += str(username)
+        s.send(username.encode())
+        s.send(msg.encode())
+
+        print("wating for serbver message")
+        data = s.recv(1024)
+        print("server:", data.decode())
+
+def connect(username):
+    try:
+        print("connecting")
+        s.connect((host,port))
+        print("connected as" + username)
+        loop()
+    except:
+        trying=input("couldnt connect to server, try again? (yes)")
+        if trying == "yes":
+            connect(username)
 
 print(client_text)
 username = input("enter username: ")
-
-print("connecting")
-s.connect((host, port))
-print("connected")
-
-while True:
-    msg = input("")
-    if msg.lower() == "quit":
-        break
-
-    s.send(username.encode())
-    s.send(msg.encode())
-
-    data = s.recv(1024)
-    print("server:", data.decode())
+connect(username)
 
 s.close()

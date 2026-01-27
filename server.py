@@ -25,10 +25,9 @@ while True:
     data = conn.recv(1024)
     if not data:
         break
-
-
     message = data.decode()          # bytes → string
-    print(addr, message)
+    print(message)
+
 
 
 conn.close()

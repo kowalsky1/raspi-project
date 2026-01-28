@@ -17,12 +17,13 @@ MM.           MM    MM  8M""""""   MM    MM    MM
 '''
 def loop():
     while True:
+        reciever = input("reciever: ")
         message_input = input("")
         if message_input.lower() == "quit":
             break
         msg = username
         current_time = datetime.now()
-        msg += (":" + message_input + ":" + current_time.strftime("%H:%M:%S"))
+        msg += (":" + reciever + ":" + message_input + ":" + current_time.strftime("%H:%M:%S"))
         s.send(msg.encode())
 
         print("wating for server message")

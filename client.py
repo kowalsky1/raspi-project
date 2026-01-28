@@ -25,7 +25,7 @@ def loop():
         msg += (":" + message_input + ":" + current_time.strftime("%H:%M:%S"))
         s.send(msg.encode())
 
-        print("wating for serbver message")
+        print("wating for server message")
         data = s.recv(1024)
         print("server:", data.decode())
 
@@ -36,8 +36,8 @@ def connect(username):
         print("connected as " + username)
         loop()
     except:
-        trying=input("couldnt connect to server, try again? (yes)")
-        if trying == "yes":
+        trying=input("couldnt connect to server, try again? (y) ")
+        if trying == "y":
             connect(username)
 
 print(client_text)
